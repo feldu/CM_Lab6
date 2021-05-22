@@ -22,6 +22,7 @@ public class ImprovedEulerMethod implements SolvingMethod {
             x += h;
             y = lastY + h / 2 * (function.apply(lastX, lastY) + function.apply(x, lastY + h * function.apply(lastX, lastY)));
             log.info("{}: x={}, y={}, f(x, y)={}", i, lastX, lastY, function.apply(lastX, lastY));
+            log.info("R={}", getR(function, lastX, lastY, h));
             methodSolution.put(lastX, lastY);
             if (x >= equations.getRight()) break;
             lastY = y;
@@ -29,7 +30,22 @@ public class ImprovedEulerMethod implements SolvingMethod {
             i++;
         }
         log.info("{}: x={}, y={}", ++i, x, y);
+        log.info("R={}", getR(function, x, y, h));
         methodSolution.put(x, y);
         return new Table(methodSolution);
+    }
+
+    private double getR(BiFunction<Double, Double, Double> function, double x, double y, double h) {
+        int ACCURACY = 2;
+        double lastY = y;
+        double lastX = x;
+        x += h;
+        double y1 = lastY + h / 2 * (function.apply(lastX, lastY) + function.apply(x, lastY + h * function.apply(lastX, lastY)));
+        x -= h / 2;
+        double y2 = lastY + h / 4 * (function.apply(lastX, lastY) + function.apply(x, lastY + h / 2 * function.apply(lastX, lastY)));
+        lastY = y2;
+        lastX = x += h/2;
+        y2 = lastY + h / 4 * (function.apply(lastX, lastY) + function.apply(x, lastY + h / 2 * function.apply(lastX, lastY)));
+        return Math.abs(y1 - y2) / (Math.pow(2, ACCURACY) - 1);
     }
 }
