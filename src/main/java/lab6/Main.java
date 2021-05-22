@@ -7,6 +7,9 @@ import lab6.io.Reader;
 import lab6.io.Writer;
 import lab6.method.ImprovedEulerMethod;
 import lab6.method.SolvingMethod;
+import lab6.plot.Plot;
+import lab6.plot.Series;
+import lab6.table.Table;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,7 +31,7 @@ public class Main {
         try {
             chooseEquation();
             equation.setH(in.readDoubleWithMessage("Введите h: "));
-            method.solve(equation);
+            Table solutionTable = method.solve(equation);
         } catch (InputMismatchException e) {
             log.error("Incorrect input type");
             out.printError("Введённые данные некоректны");
