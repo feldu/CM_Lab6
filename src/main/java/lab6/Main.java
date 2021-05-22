@@ -32,6 +32,7 @@ public class Main {
             chooseEquation();
             equation.setH(in.readDoubleWithMessage("Введите h: "));
             Table solutionTable = method.solve(equation);
+            drawPlot(solutionTable);
         } catch (InputMismatchException e) {
             log.error("Incorrect input type");
             out.printError("Введённые данные некоректны");
@@ -43,6 +44,15 @@ public class Main {
             out.printError(e.getMessage());
             e.printStackTrace(); //todo: delete this shit
         }
+    }
+
+    private static void drawPlot(Table solutionTable) {
+        Series series = new Series("Полученное решение");
+        series.setXData(solutionTable.getXData());
+        series.setYData(solutionTable.getYData());
+        Series realSeries = new Series("Точное решение", equation.getSolution(), equation.getLeft(), equation.getRight());
+        Plot plot = new Plot("График", series, realSeries);
+        plot.save("График");
     }
 
     @SneakyThrows
