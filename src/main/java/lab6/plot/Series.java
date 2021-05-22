@@ -24,6 +24,7 @@ public class Series {
 
     public Series(String seriesName, Function<Double, Double> function, double left, double right) {
         this.seriesName = seriesName;
+        this.hidePoints = true;
         xData = new ArrayList<>();
         yData = new ArrayList<>();
         double step = (right - left) / STEP_CNT;
