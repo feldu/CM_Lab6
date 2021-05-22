@@ -71,7 +71,7 @@ public class Main {
     }
 
     private static void chooseLimits() {
-        equation.setLimits(in.readDoubleWithMessage("Введите левую границу: "), in.readDoubleWithMessage("Введите правую границу: "));
+        equation.setRight(in.readDoubleWithMessage("Введите правую границу интервала: "));
         log.info("Chosen interval is [{}; {}]", equation.getLeft(), equation.getRight());
     }
 }

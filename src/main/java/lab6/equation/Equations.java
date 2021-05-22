@@ -10,11 +10,11 @@ import static java.lang.Math.pow;
 
 @Getter
 public enum Equations {
-    f1((x, y) -> y + (1 + x) * pow(y, 2), "y' = y + (1 + x)y^2, y(1) = -1", x -> {
+    f1((x, y) -> y + (1 + x) * pow(y, 2), 1, -1,"y' = y + (1 + x)y^2, y(1) = -1", x -> {
         if (x != 0) return 1 / x;
         throw new RuntimeException("Решение данного ОДУ не существует в точке x = 0");
     }),
-    f2((x, y) -> y + (1 + x) * pow(y, 2), "y' = y + (1 + x)y^2, y(1) = -1", x -> {
+    f2((x, y) -> y + (1 + x) * pow(y, 2), 1, -1, "y' = y + (1 + x)y^2, y(1) = -1", x -> {
         if (x != 0) return 1 / x;
         throw new RuntimeException("Решение данного ОДУ не существует в точке x = 0");
     });
@@ -23,20 +23,24 @@ public enum Equations {
     private String textView;
     private double left;
     private double right;
+    private double initPointArg;
+    private double initPointValue;
     @Setter
     private double h;
 
-    Equations(BiFunction<Double, Double, Double> function, String textView, Function<Double, Double> solution) {
+    Equations(BiFunction<Double, Double, Double> function,  double initPointArg, double initPointValue, String textView, Function<Double, Double> solution) {
         this.function = function;
+        this.initPointArg = initPointArg;
+        this.left = initPointArg;
+        this.initPointValue = initPointValue;
         this.textView = textView;
         this.solution = solution;
     }
 
-    public void setLimits(double a, double b) {
-        if (b > a) {
-            this.left = a;
-            this.right = b;
-        } else throw new RuntimeException("Правая граница интервала должна быть больше левой");
+    public void setRight(double right) {
+        if (right > left)
+            this.right = right;
+        else throw new RuntimeException("Правая граница интервала должна быть больше левой");
     }
 
     //todo: delete or edit or ПОШЁЛ НАХУЙ
