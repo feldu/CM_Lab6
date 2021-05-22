@@ -21,16 +21,14 @@ public class ImprovedEulerMethod implements SolvingMethod {
         while (true) {
             x += h;
             y = lastY + h / 2 * (function.apply(lastX, lastY) + function.apply(x, lastY + h * function.apply(lastX, lastY)));
-            log.info("{}: x={}, y={}, f(x, y)={}", i, lastX, lastY, function.apply(lastX, lastY));
-            log.info("R={}", getR(function, lastX, lastY, h));
+            log.info("{}: x={}, y={}, f(x, y)={}, R={}", i, lastX, lastY, function.apply(lastX, lastY), getR(function, lastX, lastY, h));
             methodSolution.put(lastX, lastY);
             if (x >= equations.getRight()) break;
             lastY = y;
             lastX = x;
             i++;
         }
-        log.info("{}: x={}, y={}", ++i, x, y);
-        log.info("R={}", getR(function, x, y, h));
+        log.info("{}: x={}, y={}, R={}", ++i, x, y, getR(function, x, y, h));
         methodSolution.put(x, y);
         return new Table(methodSolution);
     }
