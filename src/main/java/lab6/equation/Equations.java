@@ -40,15 +40,4 @@ public enum Equations {
             this.right = right;
         else throw new RuntimeException("Правая граница интервала должна быть больше левой");
     }
-
-    //todo: delete or edit or ПОШЁЛ НАХУЙ
-//    public Table convertFunctionToTable(int size) {
-//        SortedMap<Double, Double> tableMap = new TreeMap<>();
-//        double inc = (right - left) / (size - 1);
-//        for (double i = left; i <= right; i += inc) {
-//            tableMap.put(i, function.apply(i));
-//        }
-//        return new Table(tableMap);
-//    }
-
 }
