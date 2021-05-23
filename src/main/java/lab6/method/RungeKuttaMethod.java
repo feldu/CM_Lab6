@@ -14,18 +14,16 @@ public class RungeKuttaMethod implements SolvingMethod {
     public Table solve(Equations equations) {
         SortedMap<Double, Double> methodSolution = new TreeMap<>();
         BiFunction<Double, Double, Double> function = equations.getFunction();
-        double lastX = equations.getInitPointArg();
         double lastY = equations.getInitPointValue();
-        double y, x = lastX, h = equations.getH();
+        double y, x = equations.getInitPointArg(), h = equations.getH();
         int i = 0;
         while (true) {
+            y = getY(function, x, lastY, h);
+            log.info("{}: x={}, y={}, f(x, y)={}, R={}", i, x, lastY, function.apply(x, lastY), getR(function, x, lastY, h));
+            methodSolution.put(x, lastY);
             x += h;
-            y = getY(function, lastX, lastY, h);
-            log.info("{}: x={}, y={}, f(x, y)={}, R={}", i, lastX, lastY, function.apply(lastX, lastY), getR(function, lastX, lastY, h));
-            methodSolution.put(lastX, lastY);
             if (x >= equations.getRight()) break;
             lastY = y;
-            lastX = x;
             i++;
         }
         log.info("{}: x={}, y={}, R={}", ++i, x, y, getR(function, x, y, h));
