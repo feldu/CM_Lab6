@@ -6,6 +6,7 @@ import lab6.io.ConsoleWriter;
 import lab6.io.Reader;
 import lab6.io.Writer;
 import lab6.method.ImprovedEulerMethod;
+import lab6.method.RungeKuttaMethod;
 import lab6.method.SolvingMethod;
 import lab6.plot.Plot;
 import lab6.plot.Series;
@@ -42,7 +43,6 @@ public class Main {
             out.printError(e.getMessage());
         } catch (Exception e) {
             out.printError(e.getMessage());
-            e.printStackTrace(); //todo: delete this shit
         }
     }
 
@@ -62,8 +62,7 @@ public class Main {
         if (args.length != 1)
             throw new RuntimeException("Неверное количество аргументов\n" + commandFormat);
         if (args[0].equals("-e")) method = new ImprovedEulerMethod();
-            //todo: not faggot
-//        else if (args[0].equals("-r")) method = new NewtonPolynomialMethod();
+        else if (args[0].equals("-r")) method = new RungeKuttaMethod();
         else throw new RuntimeException("Неверное формат команды\n" + commandFormat);
 
     }
