@@ -42,7 +42,6 @@ public class ImprovedEulerMethod implements SolvingMethod {
         double y1 = getY(function, x, y, x + h, h);
         double y2 = getY(function, x, y, x + h / 2, h / 2);
         y2 = getY(function, x + h / 2, y2, x + h, h / 2);
-        log.info("y1={}, y2={}", y1, y2);
         return Math.abs(y1 - y2) / (Math.pow(2, ACCURACY) - 1);
     }
 }
