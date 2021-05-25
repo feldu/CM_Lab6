@@ -1,7 +1,6 @@
 .idea
 *.iml
 target
-src/test
 src/META-INF
 *.png
 *.txt
